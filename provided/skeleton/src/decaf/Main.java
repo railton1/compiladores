@@ -35,7 +35,7 @@ class Main {
 		        				type = " IDENTIFIER";
 		        				break;
 		        			}
-		        			System.out.println (token.getLine() + type + " " + text);
+		        			System.out.println (token.getLine() + type + " CHARLITERAL " + text);
 		        		}
 		        		done = true;
         			} catch(Exception e) {
