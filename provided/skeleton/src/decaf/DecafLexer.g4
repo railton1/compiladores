@@ -9,19 +9,22 @@ options
   language=Java;
 }
 
-tokens
-{
-  TK_class
-}
+
+TK_class : 'class Program';
+
 
 LCURLY : '{';
 RCURLY : '}';
 
-RESERVADA : ('boolean'|'break'|'callout'|'class'|'continue'|'else'|'for'|'int'|'return'|'void'|'if');
+LPAR : '(';
+RPAR : ')';
+
+LCOL : '[';
+RCOL : ']';
 
 BOOLEANLITERAL : ('true'|'false');
 
-ID : (ALF|'_')(ALF|NUM|'_')*;
+ID : (ALF|'_')~'.'(ALF|NUM|'_')*~'.';
 
 WS_ : ((' ')+|'\n'|'\t') -> skip;
 
@@ -31,14 +34,53 @@ CHAR : '\'' (ALF|NUM|ESC|EPC) '\'';
 
 STRING: '"'(ALF|NUM|EPS)*'"';
 
-INTLITERAL : (NUM(NUM)*|'0x'(NUM|HEX)+);
+INTLITERAL : (NUM(NUM)*|'0x'(HEX|HEX)*);
 
-OP : ('+'|'-'|'*'|'<'|'<='|'!='|'&&'|'>'|'>='|'='|'!'|'||'|'=='|'%');
+TIPO: ('int' | 'boolean');
+
+VIR: ',';
+
+PV: ';';
+
+VOID: 'void';
+
+IF: 'if';
+
+ELSE: 'else';
+
+FOR: 'for';
+
+RETURN: 'return';
+
+BREAK: 'break';
+
+IGUAL: '=';
+
+CONTINUE: 'continue';
+
+CALLOUT: 'callout';
+
+CLASS: 'class';
+
+ASSIGN_OP: ('='|'+='|'-=');
+
+MENOS: '-';
+
+EXCLA: '!';
+
+ARITH_OP: ('+'|'-'|'*'|'/'|'%');
+
+REL_OP: ('<'|'>'|'<='|'>=');
+
+EQ_OP: ('=='|'!=');
+
+COND_OP: ('&&'|'||');
 
 fragment
-ESC :  '\\' ('n'|'t'|'\\'|'"');
+BOL : ('true'|'false');
+ESC : '\\' ('n'|'t'|'\\'|'"');
 ALF : ('a'..'z' | 'A'..'Z');
 NUM : ('0'..'9');
-HEX : ('a'..'f'|'A'..'F');
+HEX : ('0'..'9'|'a'..'f'|'A'..'F');
 EPC : (' '..'!'|'#'..'&'|'('..'/'|':'..'@'|'['|']'|'^'..'`'|'{'..'~');
 EPS : (' '..'!'|'#'..'&'|'('..'/'|':'..'@'|'['|']'|'^'..'`'|'{'..'~'|'"'|'\\\''|'\t'|'\\'|'\"');
